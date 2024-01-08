@@ -1,6 +1,6 @@
 <?php
-class ItemAlmoxarifado extends TRecord{
-    const TABLENAME = 'si_item_almoxarifado';
+class BemPatrimonio extends TRecord{
+    const TABLENAME = 'si_bem_patrimonio';
     const PRIMARYKEY = 'id';
     const IDPOLICY = 'serial';
     
