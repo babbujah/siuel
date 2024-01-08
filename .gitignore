@@ -1,5 +1,3 @@
-/lib/
-/vendor/
 node_modules/
 npm-debug.log
 yarn-error.log
@@ -25,5 +23,7 @@ Homestead.json
 
 # Adianti
 *.db
-tmp/
-app/output/
+/tmp/
+/app/output/
+/lib/
+/vendor/
