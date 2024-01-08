@@ -1,7 +1,7 @@
 <?php
 class ItemAlmoxarifado extends TRecord{
     const TABLENAME = 'si_item_almoxarifado';
-    const PRIMARYKEY = 'id'
+    const PRIMARYKEY = 'id';
     const IDPOLICY = 'serial';
     
     //const CREATEEDAT = 'data_criado';
