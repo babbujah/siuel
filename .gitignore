@@ -1,6 +1,6 @@
 # core
-/lib
-/vendor
+#/lib
+#/vendor
 
 # database
 /database
