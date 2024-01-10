@@ -1,0 +1,17 @@
+# core
+/lib
+/vendor
+
+# database
+/database
+*.db
+
+# temp
+/cache
+/db
+/files
+/tmp
+
+# logs
+*.log
+
