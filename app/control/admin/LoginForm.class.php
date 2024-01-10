@@ -32,6 +32,9 @@ class LoginForm extends TPage
         $login = new TEntry('login');
         $password = new TPassword('password');
         
+        $login->disableAutoComplete();
+        $password->disableAutoComplete();
+        
         $previous_class = new THidden('previous_class');
         $previous_method = new THidden('previous_method');
         $previous_parameters = new THidden('previous_parameters');
@@ -170,7 +173,7 @@ class LoginForm extends TPage
             TScript::create("__adianti_clear_tabs()");
 
             $user = ApplicationAuthenticationService::authenticate( $data->login, $data->password );
-            $term_policy = SystemPreference::find('term_policy');
+            $term_policy = SystemPreference::findInTransaction('permission', 'term_policy');
 
             if (!empty($ini['general']['require_terms']) && $ini['general']['require_terms'] == '1' && $user->accepted_term_policy !== 'Y' && !empty($term_policy) && empty($data->accept))
             {
@@ -195,12 +198,19 @@ class LoginForm extends TPage
             
             if (!empty($ini['general']['require_terms']) && $ini['general']['require_terms'] == '1' && $user->accepted_term_policy !== 'Y' && !empty($term_policy) && !empty($data->accept))
             {
+                TTransaction::open('permission');
                 $user->accepted_term_policy = 'Y';
                 $user->accepted_term_policy_at = date('Y-m-d H:i:s');
+                $user->accepted_term_policy_data = json_encode($_SERVER);
                 $user->store();
+                TTransaction::close();
             }
 
-            if ($user)
+            if ($user && TSession::getValue('need_renewal_password'))
+            {
+                AdiantiCoreApplication::gotoPage('SystemPasswordRenewalForm');
+            }
+            else if ($user)
             {
                 ApplicationAuthenticationService::setUnit( $data->unit_id ?? null );
                 ApplicationAuthenticationService::setLang( $data->lang_id ?? null );
@@ -223,7 +233,6 @@ class LoginForm extends TPage
                     TSession::setValue('frontpage', 'EmptyPage');
                 }
             }
-            TTransaction::close();
         }
         catch (Exception $e)
         {
@@ -246,9 +255,7 @@ class LoginForm extends TPage
             
             if ($user)
             {
-                $programs = $user->getPrograms();
-                $programs['LoginForm'] = TRUE;
-                TSession::setValue('programs', $programs);
+                ApplicationAuthenticationService::loadSessionVars($user);
                 
                 $frontpage = $user->frontpage;
                 if ($frontpage instanceof SystemProgram AND $frontpage->controller)

@@ -37,6 +37,13 @@ class SystemUserForm extends TPage
         $groups        = new TDBCheckGroup('groups','permission','SystemGroup','id','name');
         $frontpage_id  = new TDBUniqueSearch('frontpage_id', 'permission', 'SystemProgram', 'id', 'name', 'name');
         $units         = new TDBCheckGroup('units','permission','SystemUnit','id','name');
+        $phone         = new TEntry('phone');
+        $address       = new TEntry('address');
+        $function_name = new TEntry('function_name');
+        $about         = new TEntry('about');
+        
+        $password->disableAutoComplete();
+        $repassword->disableAutoComplete();
         
         $units->setLayout('horizontal');
         if ($units->getLabels())
@@ -82,6 +89,8 @@ class SystemUserForm extends TPage
         
         $this->form->addFields( [new TLabel('ID')], [$id],  [new TLabel(_t('Name'))], [$name] );
         $this->form->addFields( [new TLabel(_t('Login'))], [$login],  [new TLabel(_t('Email'))], [$email] );
+        $this->form->addFields( [new TLabel(_t('Address'))], [$address],  [new TLabel(_t('Phone'))], [$phone] );
+        $this->form->addFields( [new TLabel(_t('Function'))], [$function_name],  [new TLabel(_t('About'))], [$about] );
         $this->form->addFields( [new TLabel(_t('Main unit'))], [$unit_id],  [new TLabel(_t('Front page'))], [$frontpage_id] );
         $this->form->addFields( [new TLabel(_t('Password'))], [$password],  [new TLabel(_t('Password confirmation'))], [$repassword] );
         $this->form->addFields( [new TFormSeparator(_t('Units'))] );
@@ -180,6 +189,11 @@ class SystemUserForm extends TPage
                     throw new Exception(_t('The passwords do not match'));
                 
                 $object->password = md5($object->password);
+
+                if ($object->id)
+                {
+                    SystemUserOldPassword::validate($object->id, $object->password);
+                }
             }
             else
             {
@@ -187,6 +201,11 @@ class SystemUserForm extends TPage
             }
             
             $object->store();
+
+            if ($object->password)
+            {
+                SystemUserOldPassword::register($object->id, $object->password);
+            }
             $object->clearParts();
             
             if( !empty($data->groups) )

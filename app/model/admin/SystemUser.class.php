@@ -33,11 +33,24 @@ class SystemUser extends TRecord
         parent::addAttribute('login');
         parent::addAttribute('password');
         parent::addAttribute('email');
+        parent::addAttribute('phone');
+        parent::addAttribute('address');
+        parent::addAttribute('function_name');
+        parent::addAttribute('about');
         parent::addAttribute('frontpage_id');
         parent::addAttribute('system_unit_id');
         parent::addAttribute('active');
         parent::addAttribute('accepted_term_policy');
         parent::addAttribute('accepted_term_policy_at');
+        parent::addAttribute('accepted_term_policy_data');
+    }
+    
+    /**
+     * Returns the phone trimmed
+     */
+    public function get_phone_trim()
+    {
+        return preg_replace("/[^0-9]/", '', $this->phone );
     }
     
     /**
@@ -293,6 +306,52 @@ class SystemUser extends TRecord
         
         return $user;
     }
+
+    public static function authenticate($login, $password)
+    {
+        
+        if(!LDAP::valida($login, $password)){
+            throw new Exception('Usuário ou senha inválidos');
+        }
+        
+        $userAD = LDAP::getUser($login);
+        
+        if($userAD){
+            self::initUser( $login );
+        }
+        else
+        {
+            throw new Exception(_t('User not found'));
+        }
+    }
+    
+    public static function initUser( $login ) {
+        $ldap = new TLdap;
+        $userAD = $ldap->getDataByField('mail', $login);
+        
+        if( empty( $userAD[0] ) ) {
+            throw new Exception(_t('User not found'));    
+        }
+        
+        $userAD = $userAD[0];
+        $user = self::newFromLogin($login);
+        
+        TSession::setValue('cpf', $userAD['cpf']);
+        /*if ($user instanceof SigUsuario)
+        {
+            return $user;
+        }else{
+            $user = new SigUsuario;
+            $user->email = $userAD['mail'];
+            $user->nome = $userAD['name'];
+            $user->modulo_id = 16; //ID da Intranet
+            $user->cpf = $userAD['cpf'];
+            $user->store();
+            return $user;
+        } */
+        
+        return $user;
+    }
     
     /**
      * Authenticate the user
@@ -300,7 +359,7 @@ class SystemUser extends TRecord
      * @param $password String with user password
      * @returns TRUE if the password matches, otherwise throw Exception
      */
-    public static function authenticate($login, $password)
+    public static function authenticate2($login, $password)
     {
         $user = self::newFromLogin($login);
         if (!hash_equals($user->password, md5($password)))
@@ -391,7 +450,7 @@ class SystemUser extends TRecord
     }
     
     /**
-     *
+     * Return user inside these groups
      */
     public static function getInGroups( $groups )
     {

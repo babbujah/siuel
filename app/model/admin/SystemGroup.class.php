@@ -23,6 +23,14 @@ class SystemGroup extends TRecord
         parent::__construct($id);
         parent::addAttribute('name');
     }
+
+    public static function findByName($name) {
+        $objects = SystemGroup::where('name', '=', $name)->load();
+        if (count($objects) == 1) {
+            return $objects[0];
+        }
+        throw new Exception('Perfil '.$nome.' não encontrado.');
+    }
     
     /**
      * Clone the entire object and related ones

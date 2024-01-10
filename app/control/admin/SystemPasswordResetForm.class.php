@@ -120,6 +120,8 @@ class SystemPasswordResetForm extends TPage
                 }
                 else
                 {
+                    SystemUserOldPassword::validate($user->id, $param['password1']);
+                    SystemUserOldPassword::register($user->id, $param['password1']);
                     $user->password = md5($param['password1']);
                     $user->store();
                     

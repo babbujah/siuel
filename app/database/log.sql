@@ -51,14 +51,6 @@ CREATE TABLE system_access_log (
     impersonated_by varchar(200)
 );
 
-CREATE TABLE system_access_notification_log (
-    id INTEGER PRIMARY KEY NOT NULL,
-    login text,
-    email text,
-    ip_address text,
-    login_time text
-);
-
 CREATE TABLE system_request_log (
     id INTEGER PRIMARY KEY NOT NULL,
     endpoint TEXT,
@@ -78,4 +70,12 @@ CREATE TABLE system_request_log (
     request_headers TEXT,
     request_body TEXT,
     request_duration INT
+);
+
+CREATE TABLE system_access_notification_log (
+    id INTEGER PRIMARY KEY NOT NULL,
+    login TEXT,
+    email TEXT,
+    ip_address TEXT,
+    login_time TEXT
 );
