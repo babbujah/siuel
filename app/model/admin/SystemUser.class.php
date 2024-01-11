@@ -306,24 +306,6 @@ class SystemUser extends TRecord
         
         return $user;
     }
-
-    public static function authenticate($login, $password)
-    {
-        
-        if(!LDAP::valida($login, $password)){
-            throw new Exception('Usuário ou senha inválidos');
-        }
-        
-        $userAD = LDAP::getUser($login);
-        
-        if($userAD){
-            self::initUser( $login );
-        }
-        else
-        {
-            throw new Exception(_t('User not found'));
-        }
-    }
     
     public static function initUser( $login ) {
         $ldap = new TLdap;
@@ -359,7 +341,7 @@ class SystemUser extends TRecord
      * @param $password String with user password
      * @returns TRUE if the password matches, otherwise throw Exception
      */
-    public static function authenticate2($login, $password)
+    public static function authenticate($login, $password)
     {
         $user = self::newFromLogin($login);
         if (!hash_equals($user->password, md5($password)))
@@ -368,6 +350,30 @@ class SystemUser extends TRecord
         }
         
         return $user;
+    }
+    
+    /**
+     * Authenticate the user via LDAP
+     * @param $login String with user login
+     * @param $password String with user password
+     * @returns TRUE if the password matches, otherwise throw Exception
+     */
+    public static function authenticateLDPAD($login, $password)
+    {
+        
+        if(!LDAP::valida($login, $password)){
+            throw new Exception('Usuário ou senha inválidos');
+        }
+        
+        $userAD = LDAP::getUser($login);
+        
+        if($userAD){
+            self::initUser( $login );
+        }
+        else
+        {
+            throw new Exception(_t('User not found'));
+        }
     }
     
     /**
