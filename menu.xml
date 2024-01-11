@@ -72,6 +72,10 @@
         <action>PIAreaList</action>
         <icon>fas:clipboard fa-fw</icon>
       </menuitem>
+      <menuitem label="Patrimônio">
+        <action>BemPatrimonioList</action>
+        <icon>fas:hand-holding-usd fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="AGENDA">
