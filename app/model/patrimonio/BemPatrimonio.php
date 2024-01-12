@@ -11,6 +11,8 @@ class BemPatrimonio extends TRecord
     
     const CREATEDAT = 'data_criado';
     
+    const TIPOSTATUS = ['BOM ESTADO' => 'BOM ESTADO', 'EMPRESTADO' => 'EMPRESTADO',  'BAIXA' => 'BAIXA', 'DANIFICADO' => 'DANIFICADO'];
+    
     /**
      * Constructor method
      */
