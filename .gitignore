@@ -1,10 +1,10 @@
 # database
 /database
-*.db
+#*.db
 
 # temp
 /cache
-/db
+#/db
 /files
 /tmp
 
@@ -12,7 +12,7 @@
 *.log
 
 # Adianti
-*.db
+#*.db
 /tmp/
 /app/output/
 /lib/
