@@ -76,6 +76,10 @@
         <action>BemPatrimonioList</action>
         <icon>fas:hand-holding-usd fa-fw</icon>
       </menuitem>
+      <menuitem label="Associado">
+        <action>PessoaList</action>
+        <icon>fas:users fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="AGENDA">
