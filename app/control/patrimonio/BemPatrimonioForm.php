@@ -1,8 +1,13 @@
 <?php
 /**
- * BemPatrimonioForm Registration
- * @author  <your name here>
- */
+* Classe que representa o formulário de cadastro de um bem de patrimônio.
+* BemPatrimonioForm Registration
+*
+* @version    1.0
+* @package    control/patrimonio
+* @author     Bruno Lopes
+* @since      12/01/2024
+**/
 class BemPatrimonioForm extends TPage
 {
     protected $form; // form

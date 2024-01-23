@@ -1,8 +1,13 @@
 <?php
 /**
- * BemPatrimonioList Listing
- * @author  <your name here>
- */
+* Classe que representa a listagem de Bens de patrimônio.
+* BemPatrimonioList Listing
+*
+* @version    1.0
+* @package    control/patrimonio
+* @author     Bruno Lopes
+* @since      11/01/2024
+**/
 class BemPatrimonioList extends TPage
 {
     protected $form;     // registration form
