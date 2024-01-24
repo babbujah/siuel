@@ -1,0 +1,46 @@
+Bem
+número de patrimonio
+nome
+descrição
+status
+data de criação
+responsável (pessoa, patrulha/matilha, seção, 
+
+Responsável
+nome
+tipo
+entidade (Pessoa, Equipe, Seção, Grupo)
+
+
+Pessoa
+tem nome
+tem data de nascimento
+Função
+data de criação
+
+Função
+nome
+
+Equipe
+Tem nome
+data de criação
+
+Seção
+nome
+data criação
+
+Grupo
+nome
+data criação
+
+Pessoa_Equipe
+id
+id equipe
+id pessoa
+
+Seção_Equipe
+id
+idsecao
+idequipe
+
+Sistema de progressão
