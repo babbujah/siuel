@@ -17,7 +17,7 @@ class BemPatrimonio extends TRecord
     
     const TIPOSTATUS = ['BOM ESTADO' => 'BOM ESTADO', 'EMPRESTADO' => 'EMPRESTADO',  'BAIXA' => 'BAIXA', 'DANIFICADO' => 'DANIFICADO'];
     
-    private responsavel;
+    private $responsavel;
     
     /**
      * Constructor method
@@ -30,7 +30,7 @@ class BemPatrimonio extends TRecord
         parent::addAttribute('patrimonio');
         parent::addAttribute('status');
         parent::addAttribute('data_criado');
-        parent::addAttribute('reponsavel_id');
+        parent::addAttribute('responsavel_id');
     }
     
     public function get_responsavel(){

@@ -9,7 +9,7 @@
 **/
 class Responsavel TRecord{
     
-    const TABLENAME = 'responsavel';
+    const TABLENAME = 'si_responsavel';
     const PRIMARYKEY = 'id';
     const IDPOLICE = 'serial';
     
@@ -17,7 +17,7 @@ class Responsavel TRecord{
     
     const TIPOENTIDADE = ['PESSOA' => 'PESSOA', 'EQUIPE' => 'EQUIPE', 'SEÇÃO' => 'SEÇÃO', 'GRUPO' => 'GRUPO'];
     
-    private entidade;
+    private $entidade;
     
     public function __construct($id = NULL, $callObjectLoad = TRUE){
         
