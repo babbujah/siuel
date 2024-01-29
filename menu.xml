@@ -80,6 +80,10 @@
         <action>PessoaList</action>
         <icon>fas:users fa-fw</icon>
       </menuitem>
+      <menuitem label="Função">
+        <action>FuncaoList</action>
+        <icon>far:clipboard fa-fw</icon>
+      </menuitem>
     </menu>
   </menuitem>
   <menuitem label="AGENDA">
