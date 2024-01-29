@@ -31,28 +31,26 @@ class FuncaoList extends TPage
         $this->setLimit(10);
         // $this->setCriteria($criteria) // define a standard filter
 
-        $this->addFilterField('id', '=', 'id'); // filterField, operator, formField
+        //$this->addFilterField('id', '=', 'id'); // filterField, operator, formField
         $this->addFilterField('nome', 'like', 'nome'); // filterField, operator, formField
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_search_Funcao');
-        $this->form->setFormTitle('Funcao');
+        $this->form->setFormTitle('Funcões');
         
 
         // create the form fields
-        $id = new TEntry('id');
+        //$id = new TEntry('id');
         $nome = new TEntry('nome');
-
+        $nome->setSize('100%');
 
         // add the fields
-        $this->form->addFields( [ new TLabel('Id') ], [ $id ] );
+        //$this->form->addFields( [ new TLabel('Id') ], [ $id ] );
         $this->form->addFields( [ new TLabel('Nome') ], [ $nome ] );
 
 
         // set sizes
-        $id->setSize('100%');
-        $nome->setSize('100%');
-
+        //$id->setSize('100%');
         
         // keep the form filled during navigation with session data
         $this->form->setData( TSession::getValue(__CLASS__.'_filter_data') );
@@ -60,7 +58,8 @@ class FuncaoList extends TPage
         // add the search form actions
         $btn = $this->form->addAction(_t('Find'), new TAction([$this, 'onSearch']), 'fa:search');
         $btn->class = 'btn btn-sm btn-primary';
-        $this->form->addActionLink(_t('New'), new TAction(['FuncaoForm', 'onEdit']), 'fa:plus green');
+        //$this->form->addActionLink(_t('New'), new TAction(['FuncaoForm', 'onEdit']), 'fa:plus green');
+        $this->form->addAction(_t('New'), new TAction(['FuncaoForm', 'onEdit']), 'fa:plus green');
         
         // creates a Datagrid
         $this->datagrid = new BootstrapDatagridWrapper(new TDataGrid);
@@ -70,12 +69,12 @@ class FuncaoList extends TPage
         
 
         // creates the datagrid columns
-        $column_id = new TDataGridColumn('id', 'Id', 'right');
+        //$column_id = new TDataGridColumn('id', 'Id', 'right');
         $column_nome = new TDataGridColumn('nome', 'Nome', 'left');
 
 
         // add the columns to the DataGrid
-        $this->datagrid->addColumn($column_id);
+        //$this->datagrid->addColumn($column_id);
         $this->datagrid->addColumn($column_nome);
 
         

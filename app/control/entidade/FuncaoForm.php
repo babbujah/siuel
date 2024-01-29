@@ -23,16 +23,16 @@ class FuncaoForm extends TPage
         
         // creates the form
         $this->form = new BootstrapFormBuilder('form_Funcao');
-        $this->form->setFormTitle('Funcao');
+        $this->form->setFormTitle('Cadastro de Funcão');
         
 
         // create the form fields
-        $id = new TEntry('id');
+        $id = new THidden('id');
         $nome = new TEntry('nome');
 
 
         // add the fields
-        $this->form->addFields( [ new TLabel('Id') ], [ $id ] );
+        $this->form->addFields( [], [ $id ] );
         $this->form->addFields( [ new TLabel('Nome') ], [ $nome ] );
 
 
@@ -56,7 +56,8 @@ class FuncaoForm extends TPage
         // create the form actions
         $btn = $this->form->addAction(_t('Save'), new TAction([$this, 'onSave']), 'fa:save');
         $btn->class = 'btn btn-sm btn-primary';
-        $this->form->addActionLink(_t('New'),  new TAction([$this, 'onEdit']), 'fa:eraser red');
+        $this->form->addActionLink(_t('Clear'),  new TAction([$this, 'onEdit']), 'fa:eraser red');
+        $this->form->addAction( _t('Back'), new TAction(['FuncaoList', 'onReload']), 'fa:undo');
         
         // vertical box container
         $container = new TVBox;
